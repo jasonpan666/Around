@@ -1,8 +1,8 @@
 import React from 'react';
-import $ from 'jquery';
 import { Form, Input, Button, message } from 'antd';
-import { API_ROOT } from '../constants';
+import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import { API_ROOT } from '../constants';
 
 const FormItem = Form.Item;
 
@@ -23,14 +23,14 @@ class RegistrationForm extends React.Component {
                     data: JSON.stringify({
                         username: values.username,
                         password: values.password,
-                    }),
+                    })
                 }).then((response) => {
                     message.success(response);
                     this.props.history.push('/login');
                 }, (response) => {
                     message.error(response.responseText);
-                }).catch((error) => {
-                    message.error(error);
+                }).catch((e) => {
+                    console.log(e);
                 });
             }
         });
@@ -40,7 +40,8 @@ class RegistrationForm extends React.Component {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
-    checkPassword = (rule, value, callback) => {
+
+    compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
             callback('Two passwords that you enter is inconsistent!');
@@ -48,7 +49,8 @@ class RegistrationForm extends React.Component {
             callback();
         }
     }
-    checkConfirm = (rule, value, callback) => {
+
+    validateToNextPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && this.state.confirmDirty) {
             form.validateFields(['confirm'], { force: true });
@@ -89,7 +91,7 @@ class RegistrationForm extends React.Component {
                     label="Username"
                 >
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
+                        rules: [{ required: true, message: 'Please input your username!' }],
                     })(
                         <Input />
                     )}
@@ -102,7 +104,7 @@ class RegistrationForm extends React.Component {
                         rules: [{
                             required: true, message: 'Please input your password!',
                         }, {
-                            validator: this.checkConfirm,
+                            validator: this.validateToNextPassword,
                         }],
                     })(
                         <Input type="password" />
@@ -116,7 +118,7 @@ class RegistrationForm extends React.Component {
                         rules: [{
                             required: true, message: 'Please confirm your password!',
                         }, {
-                            validator: this.checkPassword,
+                            validator: this.compareToFirstPassword,
                         }],
                     })(
                         <Input type="password" onBlur={this.handleConfirmBlur} />

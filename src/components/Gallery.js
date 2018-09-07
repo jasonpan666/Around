@@ -9,7 +9,7 @@ export class Gallery extends Component {
                 user: PropTypes.string.isRequired,
                 src: PropTypes.string.isRequired,
                 thumbnail: PropTypes.string.isRequired,
-                caption: PropTypes.string,
+                caption: PropTypes.string.isRequired,
                 thumbnailWidth: PropTypes.number.isRequired,
                 thumbnailHeight: PropTypes.number.isRequired
             })

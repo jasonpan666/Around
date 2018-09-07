@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import '../../node_modules/antd/dist/antd.css';
 @import 'Main.css';
 @import 'Register.css';
 @import 'Login.css';
@@ -24,9 +24,10 @@
 
 .App-title {
   font-size: 1.5em;
-  color: #61dafb;
-  padding-top: 16px;
+  margin: 0;
   float: left;
+  padding-top: 16px;
+  color: #61dafb;
 }
 
 .App-intro {

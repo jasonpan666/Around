@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, Upload, Icon } from 'antd';
+import { Form, Input, Icon, Upload } from 'antd';
+
 const FormItem = Form.Item;
 
 class CreatePostForm extends React.Component {
@@ -25,7 +26,8 @@ class CreatePostForm extends React.Component {
             <Form layout="vertical">
                 <FormItem
                     {...formItemLayout}
-                    label="Message">
+                    label="Message"
+                >
                     {getFieldDecorator('message', {
                         rules: [{ required: true, message: 'Please input a message.' }],
                     })(
@@ -42,7 +44,7 @@ class CreatePostForm extends React.Component {
                             getValueFromEvent: this.normFile,
                             rules: [{ required: true, message: 'Please select an image.' }],
                         })(
-                            <Upload.Dragger name="files" beforeUpload={this.beforeUpload}>
+                            <Upload.Dragger name="files" action="/upload.do" beforeUpload={this.beforeUpload}>
                                 <p className="ant-upload-drag-icon">
                                     <Icon type="inbox" />
                                 </p>
